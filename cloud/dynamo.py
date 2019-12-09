@@ -4,7 +4,7 @@ from boto3.dynamodb.conditions import Key, Attr
 import json
 
 dynamodb = boto3.resource('dynamodb', region_name='ca-central-1')
-audio_table = dynamodb.Table('audio_identifiers')
+audio_table = dynamodb.Table('audios')
 text_table = dynamodb.Table('text_version_audio')
 mapping_table = dynamodb.Table('mapping')
 

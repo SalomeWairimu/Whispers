@@ -68,8 +68,13 @@ def post_audios_from_server_to_cloud():
         postToCloud(path, str(hash((i,rpid))), rpid, cat_audio_questions[cat_file_name], cat_file_name)
 
 # post_audios_from_server_to_cloud()
-print(retrieveByRasberryPiId(hex(uuid.getnode())))
+# print(retrieveByRasberryPiId(hex(uuid.getnode())))
 
 # downloadFile( 
-print(retrieveAudioFileByAudioId("-138064170"))
-play_answer("What was fascinating about the cat?")
+# print(retrieveAudioFileByAudioId("-138064170"))
+# play_answer("What was fascinating about the cat?")
+
+#postToCloud("audios/cat1.wav", str(hash((1,"0xb827eb554f09"))), "0xb827eb554f09", ["What was fascinating about the cat?", "What is a distinguishing feature about the cat?"], "cat1.wav")
+# print(retrieveByRasberryPiId("0xb827eb554f09"))
+
+# downloadFile("cat1.wav")
