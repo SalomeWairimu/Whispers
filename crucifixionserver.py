@@ -14,6 +14,7 @@ import csv
 import pyaudio
 import wave
 import speech_recognition as sr
+import uuid
 
 from audio_processing import *
 
@@ -22,7 +23,7 @@ audios = ["audios/crucifixion1.wav"]
 # from server.py
 language = 'en'
 
-HOST = '10.0.0.123'  # Standard loopback interface address (localhost)
+HOST = '129.105.209.231'  # Standard loopback interface address (localhost)
 PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
 
 def get_distance():
@@ -50,10 +51,10 @@ def get_distance():
                             if qst is None:
                                 sound_played = False
                                 break
-                            play_answer(qst)
+                            play_answer(qst+"?")
                             
        
-#get_distance()
+# get_distance()
 
 crucifixion_audio_questions = {"crucifixion1.wav": ["Did this crucifixion stand out?", "What is origin of the crucifixion?"],
                                "crucifixion2.wav": ["What strikes you about the crucifixion?", "Is there a funny story about the painting?"],
@@ -67,3 +68,7 @@ def post_audios_from_server_to_cloud():
         path = "audios/" + crucifixion_file_name
         rpid = hex(uuid.getnode())
         postToCloud(path, str(hash((i,rpid))), rpid, crucifixion_audio_questions[crucifixion_file_name], crucifixion_file_name)
+        
+#post_audios_from_server_to_cloud()
+
+#play_answer("Who influenced the artist?")
