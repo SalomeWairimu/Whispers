@@ -6,7 +6,7 @@ const char* ssid = "Device-Northwestern";
 
 
 int status = WL_IDLE_STATUS;
-IPAddress server(129,105,10,237); 
+IPAddress server(129,105,209,248); 
 
 // Define the Pin Numbers
 #define TRIGGER_PIN 2
@@ -20,7 +20,7 @@ void setup() {
 // pinMode(ECHO_PIN, INPUT); // Set echo pin as input
  // pinMode(BUILTIN_LED, OUTPUT);
 
-// wifiConnect();
+wifiConnect();
 }
 
 //void loop() {
@@ -43,11 +43,11 @@ void setup() {
 //  payload += "}}";
 //  Serial.println(payload);
 //    // if you get a connection, report back via serial:
-////  if (client.connect(server, 65432)) {
-////    Serial.println("connected");
-////    // Make a HTTP request:
-////    client.println(payload);
-////  }
+//  if (client.connect(server, 65432)) {
+//    Serial.println("connected");
+//    // Make a HTTP request:
+//    client.println(payload);
+//  }
 //}
 
 void loop() {
@@ -62,12 +62,23 @@ digitalWrite(ECHO_PIN,LOW);
 
 pinMode(ECHO_PIN,INPUT);
 
-Serial.print("Ping: ");
+//Serial.print("Ping: ");
+//
+//Serial.print(uS / US_ROUNDTRIP_CM);
+//
+//Serial.println("cm");
 
-Serial.print(uS / US_ROUNDTRIP_CM);
+String payload = "{ \"d\" : {\"distance\":";
+payload += uS / US_ROUNDTRIP_CM;
+payload += "}}";
+Serial.print(payload);
 
-Serial.println("cm");
-
+if (client.connect(server, 65432)) {
+  Serial.println("connected");
+  // Make a HTTP request:
+  client.println(payload);
+}
+delay(10000);
 }
 
 void wifiConnect() {
