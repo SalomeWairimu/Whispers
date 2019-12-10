@@ -46,7 +46,6 @@ def create_lsi_model(texts):
 def get_best_answer_audio_id(question):
     # Retrieve all texts related to the current art piece.
     audio_ids, audio_texts = retrieve_audio_texts()
-    print(audio_texts)
     texts = clean_audio_texts(audio_texts)
     dictionary, corpus, lsi = create_lsi_model(texts)
     vec_bow = dictionary.doc2bow(question.lower().split())
@@ -57,8 +56,8 @@ def get_best_answer_audio_id(question):
     sims = index[vec_lsi]  # perform a similarity query against the corpus
     sims = sorted(enumerate(sims), key=lambda item: -item[1])
     #print(sims)
-#    for i, s in sims:
-#        print(s, audio_texts[i])
+    for i, s in sims:
+        print(s, audio_texts[i])
     return audio_ids[sims[0][0]]
 
 #print(get_best_answer_audio_id("What was fascinating about the cat?"))

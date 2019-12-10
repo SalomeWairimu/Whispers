@@ -17,7 +17,7 @@ def uploadFileToAws(file, fileNameinS3):
 
 # filepath = "/Desktop/eecs399/"
 # "/home/pi/Documents/WhisperDemo/audios/"
-def getAudioFileByKey(key, filePath = "/home/pi/Documents/WhisperDemo/audios/"):
+def getAudioFileByKey(key, filePath = "/home/pi/Documents/Whispers/audios/"):
     b.download_file(key, filePath + 'answer.wav')
 
 """

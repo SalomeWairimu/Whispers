@@ -54,3 +54,16 @@ def get_distance():
                             
        
 #get_distance()
+
+crucifixion_audio_questions = {"crucifixion1.wav": ["Did this crucifixion stand out?", "What is origin of the crucifixion?"],
+                               "crucifixion2.wav": ["What strikes you about the crucifixion?", "Is there a funny story about the painting?"],
+                               "crucifixion3.wav": ["what interests you about this painting?"],
+                               "crucifixion4.wav": ["what can you tell me about the materials used for this painting?", "what is the crucifixion based on?", "what materials were used?","what can you tell me about the gold color used?"],
+                               "crucifixion5.wav": ["When was it made?", "What was popular at the time?", "Why was metal used?"],
+                               "crucifixion6.wav": ["Who is the artist?", "Who influenced the artist?", "Where did the artist go to school?"]}
+def post_audios_from_server_to_cloud():                      
+    for i in range(1,7):
+        crucifixion_file_name = "crucifixion"+str(i)+".wav"
+        path = "audios/" + crucifixion_file_name
+        rpid = hex(uuid.getnode())
+        postToCloud(path, str(hash((i,rpid))), rpid, crucifixion_audio_questions[crucifixion_file_name], crucifixion_file_name)

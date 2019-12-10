@@ -24,11 +24,12 @@ audios = ["audios/cat1.wav"]
 # from server.py
 language = 'en'
 
-HOST = '129.105.10.237'  # Standard loopback interface address (localhost) 10.0.0.123 
+HOST = '129.105.209.248'  # Standard loopback interface address (localhost) 10.0.0.123 
 PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
 
 def get_distance():
     sound_played = False
+    socket.socket(socket.AF_INET, socket.SOCK_STREAM).close()
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
         print("server started")
@@ -42,6 +43,7 @@ def get_distance():
                 if data:
                     j = json.loads(data.decode())['d']['distance']
                     if j<50 and not sound_played:
+                        print("dist is ", j)
                         print("playing piece audios")
                         play_piece_audios(audios)
                         sound_played = True
@@ -52,29 +54,25 @@ def get_distance():
                             if qst is None:
                                 sound_played = False
                                 break
-                            play_answer(qst)
+                            play_answer(qst+"?")
+
                             
        
-# get_distance()
+get_distance()
 
-cat_audio_questions = {"cat1.wav":["What was fascinating about the cat?", "What is a distinguishing feature about the cat?", "What do you like about the cat?", "What is interesting about the cat?"], 
-"cat2.wav": ["What materials were used?", "How was the cat created?"], "cat3.wav": ["What strikes you about the painting?", "What is interesting about the design of the painting?", "What does the circularity of the image remind you of?"]}
+cat_audio_questions = {"cat1.wav":["What was fascinating about the cat?", "What is a distinguishing feature about the cat?", "What do you like about the cat?", "What is interesting about the cat?", "What is compelling about the abstraction?"],
+                       "cat2.wav": ["What materials were used?", "What did the painter use to creat the painting?", "How was the cat created?"],
+                       "cat3.wav": ["What strikes you about the painting?", "What is interesting about the design of the painting?", "What does the circularity of the image remind you of?"],
+                       "cat4.wav": ["Where is the artist from?"],"cat5.wav":["When was this painting made?"], "cat6.wav":["How was the painting made?"],
+                       "cat7.wav":["What is the meaning of the painting?", "What symbolism is used in this painting?", "What do the colors represent"]}
 
 def post_audios_from_server_to_cloud():                      
-    for i in range(1,4):
+    for i in range(1,8):
         cat_file_name = "cat"+str(i)+".wav"
         path = "audios/" + cat_file_name
         rpid = hex(uuid.getnode())
         postToCloud(path, str(hash((i,rpid))), rpid, cat_audio_questions[cat_file_name], cat_file_name)
 
 # post_audios_from_server_to_cloud()
-# print(retrieveByRasberryPiId(hex(uuid.getnode())))
 
-# downloadFile( 
-# print(retrieveAudioFileByAudioId("-138064170"))
-# play_answer("What was fascinating about the cat?")
-
-#postToCloud("audios/cat1.wav", str(hash((1,"0xb827eb554f09"))), "0xb827eb554f09", ["What was fascinating about the cat?", "What is a distinguishing feature about the cat?"], "cat1.wav")
-# print(retrieveByRasberryPiId("0xb827eb554f09"))
-
-# downloadFile("cat1.wav")
+# play_answer("What symbolism is used in this painting")
